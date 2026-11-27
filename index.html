@@ -3,586 +3,419 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MapMyScrap | Sampaloc Manila</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReadyNeighbor</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root {
-  --green: #176b4b;
-  --light: #e9f5ee;
-  --dark: #17251e;
-  --gray: #68766e;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f8f5;
-  color: var(--dark);
-}
-
-/* HEADER */
-header {
-  background: linear-gradient(120deg, #12563e, #23845b);
-  color: white;
-  padding: 25px 7%;
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.logo span {
-  color: #bde9c9;
-}
-
-header p {
-  margin-bottom: 0;
-  font-size: 14px;
-}
-
-/* MAIN */
-main {
-  max-width: 1250px;
-  margin: 25px auto;
-  padding: 0 18px;
-}
-
-.intro {
-  margin-bottom: 20px;
-}
-
-h1 {
-  font-size: 27px;
-  margin-bottom: 5px;
-}
-
-.subtitle {
-  color: var(--gray);
-  font-size: 14px;
-}
-
-/* LAYOUT */
-.layout {
-  display: grid;
-  grid-template-columns: 350px 1fr;
-  gap: 18px;
-}
-
-.panel, .map-container {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 20px #173d2410;
-}
-
-/* SEARCH */
-.controls {
-  padding: 16px;
-}
-
-input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #cedbd1;
-  border-radius: 9px;
-  font-size: 14px;
-  outline: none;
-}
-
-input:focus {
-  border-color: var(--green);
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 13px;
-}
-
-.filter {
-  padding: 8px 11px;
-  border: 1px solid #dce7df;
-  border-radius: 20px;
-  background: white;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.filter.active {
-  background: var(--green);
-  color: white;
-}
-
-.count {
-  font-size: 12px;
-  color: var(--gray);
-  margin-top: 15px;
-}
-
-/* LOCATION LIST */
-#places {
-  max-height: 550px;
-  overflow-y: auto;
-  padding: 0 12px 12px;
-}
-
-.place {
-  padding: 13px 10px;
-  border-bottom: 1px solid #edf1ed;
-  cursor: pointer;
-}
-
-.place:hover {
-  background: #f4faf5;
-}
-
-.place h3 {
-  font-size: 14px;
-  margin: 5px 0;
-}
-
-.place p {
-  font-size: 12px;
-  color: var(--gray);
-  line-height: 1.5;
-}
-
-.pill {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 5px 8px;
-  border-radius: 20px;
-  background: #eaf4ed;
-  color: var(--green);
-}
-
-.pill.mrf {
-  background: #fff2dc;
-  color: #8b5b08;
-}
-
-.pill.recycle {
-  background: #e8f0ff;
-  color: #315e9c;
-}
-
-/* MAP */
-.map-heading {
-  padding: 15px;
-  font-weight: bold;
-  border-bottom: 1px solid #eee;
-}
-
-#map {
-  height: 650px;
-  width: 100%;
-}
-
-.notice {
-  margin-top: 15px;
-  font-size: 11px;
-  color: var(--gray);
-  line-height: 1.6;
-}
-
-@media(max-width: 800px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
-  #map {
-    height: 430px;
-  }
-
-  #places {
-    max-height: 300px;
-  }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f7f3;color:#172b22;font-family:Arial,sans-serif}
+header{background:#12392d;color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{font-size:23px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:1050px;margin:auto;padding:24px 16px}
+.hero{background:linear-gradient(120deg,#12392d,#347653);color:white;padding:38px 25px;border-radius:20px}
+.hero h1{font-size:38px;margin:10px 0}
+.hero p{line-height:1.6;max-width:600px;color:#e0eee5}
+button,.btn{border:0;border-radius:9px;padding:12px 16px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+.primary{background:#c5f0d2;color:#12392d}
+.dark{background:#12392d;color:white}
+.danger{background:#ffe9e5;color:#a43e32;padding:8px}
+.panel{background:white;border:1px solid #e0e9e1;border-radius:15px;padding:18px;margin:16px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.stat{background:white;padding:17px;border-radius:13px}
+.stat strong{display:block;font-size:27px;margin-top:8px;color:#236747}
+h2{font-size:22px;margin-bottom:5px}
+.muted{color:#718078;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+label{display:block;font-size:13px;font-weight:bold;margin:12px 0}
+input,select,textarea{width:100%;padding:12px;margin-top:6px;border:1px solid #d7e2d9;border-radius:9px;font:inherit;background:white}
+textarea{min-height:75px}
+.item{padding:13px 0;border-bottom:1px solid #e6ece7;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.item:last-child{border:0}
+.item strong{display:block}
+.item small{display:block;color:#718078;margin-top:5px;line-height:1.5}
+.tag{background:#e2f4e7;color:#236747;border-radius:20px;padding:6px 9px;font-size:11px;font-weight:bold;white-space:nowrap}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
+.filters button{background:#e2ebe4;color:#315642;padding:9px 12px}
+.filters button.active{background:#12392d;color:white}
+.notice{background:#fff5df;border:1px solid #f1dfb8;padding:14px;border-radius:10px;font-size:13px;line-height:1.6}
+#status{padding:12px;border-radius:10px;margin:15px 0;font-size:13px;background:#fff1d9;color:#79531b}
+footer{text-align:center;background:#12392d;color:white;padding:23px;font-size:13px;margin-top:30px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}.hero h1{font-size:30px}header{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">♻ MapMy<span>Scrap</span></div>
-  <p>Find. Recycle. Make a Difference.</p>
-  <p> Made by Paoul Jarred O. Andrada, BSCpE, First Year</p>
+  <div class="logo">🏡 ReadyNeighbor</div>
+  <nav>
+    <a href="#resources">Resources</a>
+    <a href="#requests">Requests</a>
+    <a href="#share">Share</a>
+  </nav>
 </header>
 
 <main>
+<section class="hero">
+  <p>COMMUNITY EMERGENCY RESOURCE NETWORK</p>
+  <h1>Stronger communities start with neighbors.</h1>
+  <p>Find available resources, ask for assistance, and help your neighborhood prepare for emergencies. Because being prepared is better when we prepare together.</p>
+  <a class="btn primary" href="#resources">Explore Resources ↓</a>
+</section>
 
-  <section class="intro">
-    <h1>Explore Recycling Locations</h1>
-    <div class="subtitle">
-      Discover scrapyards, MRFs, and recycling centers around Sampaloc, Manila.
-    </div>
-  </section>
+<div id="status">Connecting to ReadyNeighbor database...</div>
 
-  <div class="layout">
+<section class="stats">
+  <div class="stat">Shared Resources<strong id="totalResources">0</strong></div>
+  <div class="stat">Open Requests<strong id="totalRequests">0</strong></div>
+  <div class="stat">Category Coverage<strong id="coverage">0%</strong></div>
+</section>
 
-    <!-- LOCATION SIDEBAR -->
-    <section class="panel">
+<section id="resources">
+  <h2>Community Resource Board</h2>
+  <p class="muted">Discover resources shared by your neighbors.</p>
+  <div class="filters" id="filters">
+    <button class="active" data-filter="All">All</button>
+    <button data-filter="Water">💧 Water</button>
+    <button data-filter="Food">🥫 Food</button>
+    <button data-filter="Power">🔋 Power</button>
+    <button data-filter="First aid">🩹 First Aid</button>
+    <button data-filter="Shelter">🏠 Shelter</button>
+    <button data-filter="Transport">🚐 Transport</button>
+  </div>
+  <div class="panel" id="resourceList">Loading resources...</div>
+</section>
 
-      <div class="controls">
+<section id="requests">
+  <h2>Community Assistance Requests</h2>
+  <p class="muted">See what your neighborhood needs.</p>
+  <div class="panel" id="requestList">Loading requests...</div>
+</section>
 
-        <input
-          type="search"
-          id="search"
-          placeholder="Search a location or street..."
-        >
-
-        <div class="filters">
-
-          <button class="filter active" data-filter="all">
-            All
-          </button>
-
-          <button class="filter" data-filter="Scrapyard">
-            Scrapyards
-          </button>
-
-          <button class="filter" data-filter="MRF">
-            MRFs
-          </button>
-
-          <button class="filter" data-filter="Recycling center">
-            Recycling
-          </button>
-
-        </div>
-
-        <div class="count" id="count">
-          Loading locations...
-        </div>
-
-      </div>
-
-      <div id="places"></div>
-
-    </section>
-
-    <!-- MAP -->
-    <section class="map-container">
-
-      <div class="map-heading">
-        📍 Map of Sampaloc, Manila
-      </div>
-
-      <div id="map"></div>
-
-    </section>
-
+<section class="grid">
+  <div class="panel" id="share">
+    <h2>Share a Resource</h2>
+    <p class="muted">Have extra supplies? Help someone in your community.</p>
+    <form id="resourceForm">
+      <label>Category
+        <select id="resourceCategory">
+          <option>Water</option><option>Food</option>
+          <option>Power</option><option>First aid</option>
+          <option>Shelter</option><option>Transport</option>
+        </select>
+      </label>
+      <label>Resource Name
+        <input id="resourceName" maxlength="100" placeholder="e.g. Drinking water" required>
+      </label>
+      <label>Quantity
+        <input id="resourceQty" maxlength="80" placeholder="e.g. 5 containers" required>
+      </label>
+      <label>Availability
+        <select id="availability">
+          <option>Available to share</option>
+          <option>Available to lend</option>
+          <option>Donation</option>
+        </select>
+      </label>
+      <label>General Location
+        <input id="resourceArea" maxlength="100" placeholder="e.g. Near barangay hall" required>
+      </label>
+      <button class="dark" type="submit" id="resourceButton">Add Resource</button>
+    </form>
   </div>
 
-  <p class="notice">
-    Note: Location information must be verified before visiting.
-    Facility listings and operating hours may change. MRF listings
-    should be confirmed with the respective barangay or local government.
-    Map data © OpenStreetMap contributors.
-  </p>
+  <div class="panel">
+    <h2>Request Assistance</h2>
+    <p class="muted">Let your neighbors know what you need.</p>
+    <form id="requestForm">
+      <label>Category
+        <select id="needCategory">
+          <option>Water</option><option>Food</option>
+          <option>Power</option><option>First aid</option>
+          <option>Shelter</option><option>Transport</option>
+        </select>
+      </label>
+      <label>What do you need?
+        <input id="needQty" maxlength="80" placeholder="e.g. Drinking water" required>
+      </label>
+      <label>Urgency
+        <select id="urgency">
+          <option>Normal</option><option>Urgent</option><option>Critical</option>
+        </select>
+      </label>
+      <label>General Location
+        <input id="needArea" maxlength="100" placeholder="e.g. Purok 2" required>
+      </label>
+      <label>Additional Details
+        <textarea id="needDetails" maxlength="400" placeholder="Additional information..."></textarea>
+      </label>
+      <button class="dark" type="submit" id="requestButton">Submit Request</button>
+    </form>
+  </div>
+</section>
 
+<section class="panel">
+  <h2>Community Readiness</h2>
+  <p class="muted">Which resource categories currently have listings?</p>
+  <div id="readinessList"></div>
+  <div class="notice">
+    <strong>Emergency Reminder:</strong> ReadyNeighbor is a student prototype, not an official emergency response service. Listings are user-submitted and unverified. Always follow official LGU and barangay instructions. Contact emergency responders during life-threatening situations.
+  </div>
+</section>
 </main>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<footer>
+  <strong>ReadyNeighbor</strong><br>
+  Prepared Together. Stronger Together.<br>
+  GED 104 — Science, Technology, and Society
+</footer>
 
 <script>
+// =======================================
+// ADD YOUR SUPABASE DETAILS HERE
+// =======================================
 
-// =====================================
-// MAP INITIALIZATION
-// =====================================
+const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
+const SUPABASE_KEY = "YOUR_SUPABASE_ANON_PUBLIC_KEY";
 
-const map = L.map('map').setView(
-  [14.6091, 120.9890], 14
-);
+// =======================================
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; OpenStreetMap contributors',
-    maxZoom: 19
-  }
-).addTo(map);
+const categories = ["Water","Food","Power","First aid","Shelter","Transport"];
+const icons = {
+  "Water":"💧","Food":"🥫","Power":"🔋",
+  "First aid":"🩹","Shelter":"🏠","Transport":"🚐"
+};
 
+let db, user, resources=[], requests=[], filter="All";
 
-// =====================================
-// LOCATION DATABASE
-// =====================================
+const el = id => document.getElementById(id);
 
-// Add verified locations here.
-// Coordinates are approximate placeholders;
-// update them with verified GPS coordinates.
-
-const locations = [
-
-  {
-    name: "Nathaniell's Junkshop",
-    type: "Scrapyard",
-    address: "652 Lacson Avenue, Sampaloc, Manila",
-    lat: 14.6150,
-    lng: 120.9860,
-    phone: "0935 721 6573"
-  },
-
-  {
-    name: "Duncan Scrap Dealer",
-    type: "Recycling center",
-    address: "361 Lacson Avenue, Sampaloc, Manila",
-    lat: 14.6100,
-    lng: 120.9870,
-    phone: "0917 844 3481"
-  },
-
-  {
-    name: "Alfred Trading",
-    type: "Scrapyard",
-    address: "843 Domingo Santiago Street, Sampaloc, Manila",
-    lat: 14.6160,
-    lng: 120.9880,
-    phone: "02 8714 7523"
-  },
-
-  {
-    name: "Bigbos Junk Shop",
-    type: "Scrapyard",
-    address: "2015 Retiro Street, Sampaloc, Manila",
-    lat: 14.6200,
-    lng: 120.9890,
-    phone: "02 7958 2011"
-  },
-
-  {
-    name: "Dapitan Junk Shop",
-    type: "Recycling center",
-    address: "1850 Dapitan Street, Sampaloc, Manila",
-    lat: 14.6230,
-    lng: 120.9910,
-    phone: "0946 460 8872"
-  },
-
-  {
-    name: "#43 Trabajo Junkshop",
-    type: "Recycling center",
-    address: "43 M. Dela Fuente Street, Sampaloc, Manila",
-    lat: 14.6070,
-    lng: 120.9870,
-    phone: "Not available"
-  },
-
-  {
-    name: "Capuz Junk Shop",
-    type: "Recycling center",
-    address: "1122 Antipolo Street, Sampaloc, Manila",
-    lat: 14.6140,
-    lng: 120.9920,
-    phone: "Not available"
-  },
-
-  {
-    name: "A.H. Lacson Junk Shop",
-    type: "Scrapyard",
-    address: "409 A.H. Lacson corner G. Tuazon, Manila",
-    lat: 14.6110,
-    lng: 120.9850,
-    phone: "0939 941 9203"
-  },
-
-  {
-    name: "Lovelyn Junkshop",
-    type: "Recycling center",
-    address: "318 Blumentritt Road, Sampaloc, Manila",
-    lat: 14.6190,
-    lng: 120.9860,
-    phone: "Not available"
-  },
-
-  {
-    name: "Metrica Enterprises",
-    type: "Scrapyard",
-    address: "1967 Laon Laan Street, Sampaloc, Manila",
-    lat: 14.6220,
-    lng: 120.9840,
-    phone: "02 8741 6044"
-  }
-
-];
-
-
-// =====================================
-// MARKERS
-// =====================================
-
-let markers = [];
-
-function addMarkers(filteredLocations) {
-
-  markers.forEach(marker => map.removeLayer(marker));
-  markers = [];
-
-  filteredLocations.forEach(location => {
-
-    const marker = L.marker([
-      location.lat,
-      location.lng
-    ]).addTo(map);
-
-    marker.bindPopup(`
-      <b>${location.name}</b>
-      <br>
-      ${location.type}
-      <br><br>
-      📍 ${location.address}
-      <br>
-      ☎ ${location.phone}
-      <br><br>
-      <a
-        href="https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}"
-        target="_blank"
-        rel="noopener"
-      >
-        Get Directions
-      </a>
-    `);
-
-    markers.push(marker);
-
-  });
-
+function safe(value){
+  return String(value ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  }[c]));
 }
 
-
-// =====================================
-// LOCATION DISPLAY
-// =====================================
-
-let activeFilter = "all";
-
-const placesContainer = document.getElementById("places");
-const searchInput = document.getElementById("search");
-const count = document.getElementById("count");
-
-function displayLocations() {
-
-  const search = searchInput.value.toLowerCase();
-
-  const filtered = locations.filter(location => {
-
-    const matchesCategory =
-      activeFilter === "all" ||
-      location.type === activeFilter;
-
-    const matchesSearch =
-      location.name.toLowerCase().includes(search) ||
-      location.address.toLowerCase().includes(search);
-
-    return matchesCategory && matchesSearch;
-
-  });
-
-  count.textContent =
-    filtered.length + " locations found";
-
-  placesContainer.innerHTML = "";
-
-  if (filtered.length === 0) {
-    placesContainer.innerHTML =
-      "<p>No locations found. Try another search.</p>";
-  }
-
-  filtered.forEach(location => {
-
-    const item = document.createElement("div");
-
-    item.className = "place";
-
-    const categoryClass =
-      location.type === "MRF" ? "mrf" :
-      location.type === "Recycling center" ? "recycle" : "";
-
-    item.innerHTML = `
-      <span class="pill ${categoryClass}">
-        ${location.type}
-      </span>
-
-      <h3>${location.name}</h3>
-
-      <p>📍 ${location.address}</p>
-    `;
-
-    item.addEventListener("click", () => {
-
-      map.setView(
-        [location.lat, location.lng],
-        17
-      );
-
-      const marker = markers.find(m =>
-        m.getLatLng().lat === location.lat &&
-        m.getLatLng().lng === location.lng
-      );
-
-      if (marker) marker.openPopup();
-
-    });
-
-    placesContainer.appendChild(item);
-
-  });
-
-  addMarkers(filtered);
-
+function message(text,good=false){
+  el("status").textContent=text;
+  el("status").style.background=good?"#e3f5e8":"#fff1d9";
+  el("status").style.color=good?"#236747":"#79531b";
 }
 
+async function connect(){
+  if(SUPABASE_URL.includes("YOUR_") ||
+     SUPABASE_KEY.includes("YOUR_")){
+    message("Setup required: Add your Supabase URL and public key in the code.");
+    return;
+  }
 
-// =====================================
-// CATEGORY FILTERS
-// =====================================
+  try{
+    db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-document.querySelectorAll(".filter").forEach(button => {
+    let {data:sessionData,error:sessionError}=await db.auth.getSession();
+    if(sessionError) throw sessionError;
 
-  button.addEventListener("click", () => {
+    if(!sessionData.session){
+      const result=await db.auth.signInAnonymously();
+      if(result.error) throw result.error;
+    }
 
-    document.querySelectorAll(".filter").forEach(btn =>
-      btn.classList.remove("active")
-    );
+    const result=await db.auth.getUser();
+    if(result.error) throw result.error;
+    user=result.data.user;
 
-    button.classList.add("active");
+    await loadData();
 
-    activeFilter = button.dataset.filter;
+    db.channel("readyneighbor-updates")
+      .on("postgres_changes",{
+        event:"*",schema:"public",table:"resources"
+      },loadData)
+      .on("postgres_changes",{
+        event:"*",schema:"public",table:"requests"
+      },loadData)
+      .subscribe();
 
-    displayLocations();
+    message("Connected! Your community data is synchronized online.",true);
 
+  }catch(error){
+    console.error(error);
+    message("Connection error: "+error.message);
+  }
+}
+
+async function loadData(){
+  const [r,q]=await Promise.all([
+    db.from("resources").select("*")
+      .eq("is_active",true).order("created_at",{ascending:false}),
+    db.from("requests").select("*")
+      .eq("status","open").order("created_at",{ascending:false})
+  ]);
+
+  if(r.error || q.error){
+    console.error(r.error || q.error);
+    message("Unable to load data. Check your database setup.");
+    return;
+  }
+
+  resources=r.data || [];
+  requests=q.data || [];
+  render();
+}
+
+function render(){
+  renderResources();
+  renderRequests();
+  renderReadiness();
+
+  el("totalResources").textContent=resources.length;
+  el("totalRequests").textContent=requests.length;
+
+  const covered=categories.filter(c=>
+    resources.some(r=>r.category===c)
+  ).length;
+
+  el("coverage").textContent=
+    Math.round(covered/categories.length*100)+"%";
+}
+
+function renderResources(){
+  const list=resources.filter(r=>
+    filter==="All" || r.category===filter
+  );
+
+  el("resourceList").innerHTML=list.length
+    ? list.map(r=>`
+      <div class="item">
+        <div>
+          <strong>${icons[r.category]} ${safe(r.item_name)}</strong>
+          <small>${safe(r.quantity)} · ${safe(r.area)}<br>
+          ${safe(r.availability)}</small>
+        </div>
+        <div>
+          <span class="tag">${safe(r.category)}</span>
+          ${r.owner_id===user.id
+            ? `<button class="danger" data-delete-resource="${r.id}">Delete</button>`
+            : ""}
+        </div>
+      </div>
+    `).join("")
+    : "<p>No resources listed yet.</p>";
+}
+
+function renderRequests(){
+  el("requestList").innerHTML=requests.length
+    ? requests.map(r=>`
+      <div class="item">
+        <div>
+          <strong>${icons[r.category]} ${safe(r.quantity)}</strong>
+          <small>${safe(r.area)}<br>
+          ${safe(r.details || "No additional details.")}</small>
+        </div>
+        <div>
+          <span class="tag">${safe(r.urgency)}</span>
+          ${r.owner_id===user.id
+            ? `<button class="danger" data-close-request="${r.id}">Close</button>`
+            : ""}
+        </div>
+      </div>
+    `).join("")
+    : "<p>No open assistance requests.</p>";
+}
+
+function renderReadiness(){
+  el("readinessList").innerHTML=categories.map(c=>{
+    const available=resources.some(r=>r.category===c);
+    return `<div class="item">
+      <span>${icons[c]} ${c}</span>
+      <strong>${available?"Available":"No listing yet"}</strong>
+    </div>`;
+  }).join("");
+}
+
+el("resourceForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!db || !user)return alert("Database is not connected.");
+
+  const button=el("resourceButton");
+  button.disabled=true;
+  button.textContent="Saving...";
+
+  const {error}=await db.from("resources").insert({
+    owner_id:user.id,
+    category:el("resourceCategory").value,
+    item_name:el("resourceName").value.trim(),
+    quantity:el("resourceQty").value.trim(),
+    availability:el("availability").value,
+    area:el("resourceArea").value.trim()
   });
 
+  button.disabled=false;
+  button.textContent="Add Resource";
+
+  if(error)return alert(error.message);
+
+  e.target.reset();
+  alert("Resource successfully shared!");
+  await loadData();
 });
 
+el("requestForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!db || !user)return alert("Database is not connected.");
 
-// =====================================
-// SEARCH
-// =====================================
+  const button=el("requestButton");
+  button.disabled=true;
+  button.textContent="Submitting...";
 
-searchInput.addEventListener(
-  "input",
-  displayLocations
-);
+  const {error}=await db.from("requests").insert({
+    owner_id:user.id,
+    category:el("needCategory").value,
+    quantity:el("needQty").value.trim(),
+    urgency:el("urgency").value,
+    area:el("needArea").value.trim(),
+    details:el("needDetails").value.trim()
+  });
 
+  button.disabled=false;
+  button.textContent="Submit Request";
 
-// =====================================
-// INITIAL DISPLAY
-// =====================================
+  if(error)return alert(error.message);
 
-displayLocations();
+  e.target.reset();
+  alert("Your request has been posted!");
+  await loadData();
+});
 
+el("filters").addEventListener("click",e=>{
+  if(!e.target.dataset.filter)return;
+  filter=e.target.dataset.filter;
+  document.querySelectorAll("#filters button").forEach(b=>
+    b.classList.toggle("active",b===e.target)
+  );
+  renderResources();
+});
+
+document.addEventListener("click",async e=>{
+  const del=e.target.dataset.deleteResource;
+  const close=e.target.dataset.closeRequest;
+
+  if(del && confirm("Delete your resource listing?")){
+    const {error}=await db.from("resources")
+      .delete().eq("id",del);
+    if(error)alert(error.message);
+    else await loadData();
+  }
+
+  if(close && confirm("Close your request?")){
+    const {error}=await db.from("requests")
+      .update({status:"closed"}).eq("id",close);
+    if(error)alert(error.message);
+    else await loadData();
+  }
+});
+
+connect();
 </script>
-
 </body>
 </html>
